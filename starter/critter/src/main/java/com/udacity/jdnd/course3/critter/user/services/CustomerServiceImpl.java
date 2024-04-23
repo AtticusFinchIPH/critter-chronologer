@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getByPetId(Long petId) {
         Optional<Pet> pet = petRepository.findById(petId);
         if (!pet.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pet does not exist");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pet not found");
         }
         Customer customer = pet.get().getCustomer();
         return customer;

@@ -14,10 +14,12 @@ public class CustomerMapper {
     }
     public static CustomerDTO convertCustomerToCustomerDTO(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
-        List<Pet> pets = customer.getPets();
-        List<Long> petIds = pets.stream().map(pet -> pet.getId()).collect(Collectors.toList());
         BeanUtils.copyProperties(customer, customerDTO);
-        customerDTO.setPetIds(petIds);
+        List<Pet> pets = customer.getPets();
+        if(pets != null) {
+            List<Long> petIds = pets.stream().map(pet -> pet.getId()).collect(Collectors.toList());
+            customerDTO.setPetIds(petIds);
+        }
         return customerDTO;
     }
     public static List<CustomerDTO> convertCustomerToCustomerDTO(List<Customer> customers) {
