@@ -4,7 +4,9 @@ import com.udacity.jdnd.course3.critter.pet.entities.Pet;
 import com.udacity.jdnd.course3.critter.schedule.entities.Schedule;
 import com.udacity.jdnd.course3.critter.schedule.repositories.ScheduleRepository;
 import com.udacity.jdnd.course3.critter.user.entities.Customer;
+import com.udacity.jdnd.course3.critter.user.entities.Employee;
 import com.udacity.jdnd.course3.critter.user.repositories.CustomerRepository;
+import com.udacity.jdnd.course3.critter.user.repositories.EmployeeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +20,12 @@ import java.util.Optional;
 @Transactional
 public class ScheduleServiceImpl implements ScheduleService{
     private final ScheduleRepository scheduleRepository;
+    private final EmployeeRepository employeeRepository;
     private final CustomerRepository customerRepository;
 
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, CustomerRepository customerRepository) {
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, EmployeeRepository employeeRepository, CustomerRepository customerRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.employeeRepository = employeeRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -42,6 +46,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public List<Schedule> getAllByEmployeeId(long employeeId) {
+        Optional<Employee> employee = employeeRepository.findById(employeeId);
+        if (!employee.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Employee not found");
+        }
         return scheduleRepository.getByEmployeeId(employeeId);
     }
 

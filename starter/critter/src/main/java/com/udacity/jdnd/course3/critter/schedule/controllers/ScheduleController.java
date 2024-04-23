@@ -54,7 +54,7 @@ public class ScheduleController {
         List<Long> wantedEmployeeIds = scheduleDTO.getEmployeeIds();
         Optional<Long> unmatchedEmployeeId = wantedEmployeeIds.stream().filter(wantedId -> {
            Optional<Employee> matchedEmployee = availableEmployees.stream().filter(available -> available.getId() == wantedId).findAny();
-           if (matchedEmployee.isEmpty()) {
+           if (!matchedEmployee.isPresent()) {
                return true;
            }
            return false;

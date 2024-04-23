@@ -3,6 +3,7 @@ package com.udacity.jdnd.course3.critter.user.entities;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeeMapper {
     public static Employee convertEmployeeDTOToEmployee (EmployeeDTO employeeDTO) {
@@ -16,7 +17,7 @@ public class EmployeeMapper {
         return employeeDTO;
     }
     public static List<EmployeeDTO> convertEmployeeToEmployeeDTO(List<Employee> employees) {
-        return employees.stream().map(EmployeeMapper::convertEmployeeToEmployeeDTO).toList();
+        return employees.stream().map(EmployeeMapper::convertEmployeeToEmployeeDTO).collect(Collectors.toList());
     }
 
 }

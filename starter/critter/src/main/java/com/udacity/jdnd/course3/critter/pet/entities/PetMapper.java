@@ -4,6 +4,7 @@ import com.udacity.jdnd.course3.critter.user.entities.Customer;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PetMapper {
     public static Pet convertPetDTOToPet(PetDTO petDTO) {
@@ -21,6 +22,6 @@ public class PetMapper {
         return petDTO;
     }
     public static List<PetDTO> convertPetToPetDTO(List<Pet> pets) {
-        return pets.stream().map(PetMapper::convertPetToPetDTO).toList();
+        return pets.stream().map(PetMapper::convertPetToPetDTO).collect(Collectors.toList());
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ScheduleMapper {
     public static Schedule convertScheduleDTOToSchedule(ScheduleDTO scheduleDTO, List<Employee> employees, List<Pet> pets) {
@@ -26,7 +27,7 @@ public class ScheduleMapper {
         List<Employee> employees = schedule.getEmployees();
         List<Long> employeesIds = new ArrayList<>();
         if (employees != null) {
-            employeesIds = employees.stream().map(Employee::getId).toList();
+            employeesIds = employees.stream().map(Employee::getId).collect(Collectors.toList());
         }
 
         scheduleDTO.setEmployeeIds(employeesIds);
@@ -34,7 +35,7 @@ public class ScheduleMapper {
         List<Pet> pets = schedule.getPets();
         List<Long> petsIds = new ArrayList<>();
         if (pets != null) {
-            petsIds = pets.stream().map(Pet::getId).toList();
+            petsIds = pets.stream().map(Pet::getId).collect(Collectors.toList());
         }
 
         scheduleDTO.setPetIds(petsIds);
@@ -43,6 +44,6 @@ public class ScheduleMapper {
     }
 
     public static List<ScheduleDTO> convertScheduleToScheduleDTO(List<Schedule> schedules) {
-        return schedules.stream().map(ScheduleMapper::convertScheduleToScheduleDTO).toList();
+        return schedules.stream().map(ScheduleMapper::convertScheduleToScheduleDTO).collect(Collectors.toList());
     }
 }
