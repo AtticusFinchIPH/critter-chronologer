@@ -206,8 +206,8 @@ public class CritterFunctionalTest {
         ScheduleDTO sched3 = new ScheduleDTO();
         sched3.setEmployeeIds(sched1.getEmployeeIds());
         sched3.setPetIds(sched2.getPetIds());
-        sched3.setActivities(Sets.newHashSet(EmployeeSkill.SHAVING, EmployeeSkill.PETTING));
-        sched3.setDate(LocalDate.of(2020, 3, 23));
+        sched3.setActivities(Sets.newHashSet(EmployeeSkill.FEEDING, EmployeeSkill.WALKING));
+        sched3.setDate(LocalDate.of(2019, 12, 25));
         scheduleController.createSchedule(sched3);
 
         /*
